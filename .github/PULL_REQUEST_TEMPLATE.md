@@ -1,22 +1,22 @@
-## Summary
-
-
-## Ticket URL
-[#](https://www.atlassian.com/software/jira)
-
 ## Type of change
-- [ ] Bug fix
+- [ ] Bugfix
 - [ ] Feature containing non-breaking changes
 - [ ] Feature containing breaking changes
 
-## Critical changes
-#### DB changes (if any)
+## Ticket
+[https://www.atlassian.com/software/jira/#](https://www.atlassian.com/software/jira)
 
-#### Queue changes (if any)
+## Summary
 
-#### Cron changes xxf
 
-#### Others (if any)
+## Critical changes (if any)
+#### DB 
+
+#### Queues
+
+#### Cron 
+
+#### Others
 
 
 ## Checklist
@@ -25,6 +25,6 @@
 - [ ] All tests pass locally
 - [ ] There are no vulnerability warnings
 - [ ] There are no dependency deprecation warnings
-- [ ] The ticket has been updated accordingly
-- [ ] New logging has been added (if necessary)
-- [ ] The documentation has been updated accordingly (if necessary)
+- [ ] Ticket has been updated accordingly
+- [ ] New logging has been added (if needed)
+- [ ] Documentation has been updated accordingly (if needed)
