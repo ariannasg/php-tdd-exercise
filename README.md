@@ -5,9 +5,6 @@ Develop better software with less bugs, and save more time for developing new fe
 
 * [Objectives](#objectives)
 * [Local setup](#local-setup)
-* [Testing](#testing)
-* [CI/CD](#cicd)
-* [TODOs](./TODO.md)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -31,20 +28,6 @@ Follow the instructions to get the project up and running for local development 
     ```
     composer --version
     ```
-
-## Testing
-At the moment we only have unit tests in the project.
-
-For running all tests:
-```
-make tests
-```
-
-## CI/CD
-Description of CI/CD setup.
-
-## TODOs
-List of TODOs can be found [here](TODO.md).
 
 ## Contributing
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CONTRIBUTING.md)
