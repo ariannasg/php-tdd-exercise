@@ -30,7 +30,7 @@ Follow the instructions to get the project up and running for local development 
     ```
 
 ## Contributing
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CONTRIBUTING.md)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](.github/CONTRIBUTING.md)
 
 ### License
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](LICENSE.md)
