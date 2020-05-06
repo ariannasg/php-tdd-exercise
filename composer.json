@@ -13,5 +13,8 @@
         "psr-4": {
             "TDD\\Test\\": "tests/"
         }
-    }
+    },
+  "require": {
+    "ext-pdo": "*"
+  }
 }
