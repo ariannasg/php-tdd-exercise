@@ -12,6 +12,21 @@ class ReceiptTest extends TestCase
      */
     private $receipt;
 
+    public function provideTotal(): array
+    {
+        return [
+            [
+                [1, 2, 5, 8], 16
+            ],
+            [
+                [-1, 2, 5, 8], 14
+            ],
+            [
+                [1, 2, 8], 11
+            ],
+        ];
+    }
+
     protected function setUp(): void
     {
         $this->receipt = new Receipt();
@@ -22,16 +37,20 @@ class ReceiptTest extends TestCase
         unset($this->receipt);
     }
 
-    public function testTotal(): void
+    /**
+     * @dataProvider provideTotal
+     * @param array $items
+     * @param float $expected
+     */
+    public function testTotal(array $items, float $expected): void
     {
-        $input = [0, 2, 5, 8];
         $coupon = null;
-        $output = $this->receipt->total($input, $coupon);
+        $output = $this->receipt->total($items, $coupon);
 
         self::assertEquals(
-            15,
+            $expected,
             $output,
-            'When summing the total should equal 15');
+            "When summing the total should equal {$expected}");
     }
 
     public function testTotalAndCoupon(): void
