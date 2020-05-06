@@ -2,7 +2,9 @@
 
 namespace TDD\Test;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use TDD\Formatter;
 use TDD\Receipt;
 
 class ReceiptTest extends TestCase
@@ -11,6 +13,10 @@ class ReceiptTest extends TestCase
      * @var Receipt
      */
     private $receipt;
+    /**
+     * @var MockObject
+     */
+    private $formatter;
 
     public function provideSubTotal(): array
     {
@@ -27,27 +33,16 @@ class ReceiptTest extends TestCase
         ];
     }
 
-    public function provideCurrencyAmt(): array
-    {
-        return [
-            [
-                1, 1.00, '1 should be transformed into 1.00'
-            ],
-            [
-                1.1, 1.10, '1 should be transformed into 1.10'
-            ],
-            [
-                1.11, 1.11, '1 should be transformed into 1.11'
-            ],
-            [
-                1.111, 1.11, '1 should be transformed into 1.11'
-            ]
-        ];
-    }
-
     protected function setUp(): void
     {
-        $this->receipt = new Receipt();
+        $this->formatter = $this->getMockBuilder(Formatter::class)
+            ->setMethods(['currencyAmt'])
+            ->getMock();
+        $this->formatter->method('currencyAmt')
+            ->with(self::anything())
+            ->willReturnArgument(0);
+
+        $this->receipt = new Receipt($this->formatter);
     }
 
     protected function tearDown(): void
@@ -107,7 +102,11 @@ class ReceiptTest extends TestCase
         $items = [1, 2, 5, 8];
         $coupon = null;
 
-        $receipt = $this->getMockBuilder(Receipt::class)->setMethods(['subTotal', 'tax'])->getMock();
+        $receipt = $this->getMockBuilder(Receipt::class)
+            ->setConstructorArgs([$this->formatter])
+            ->setMethods(['subTotal', 'tax'])
+            ->getMock();
+
         $receipt->expects(self::once())
             ->method('subTotal')
             ->with($items, $coupon)
@@ -120,20 +119,5 @@ class ReceiptTest extends TestCase
         $result = $receipt->postTaxTotal($items, $coupon);
 
         self::assertEquals(11.00, $result);
-    }
-
-    /**
-     * @dataProvider provideCurrencyAmt
-     * @param float $input
-     * @param float $expected
-     * @param string $msg
-     */
-    public function testCurrencyAmt(float $input, float $expected, string $msg): void
-    {
-        self::assertSame(
-            $expected,
-            $this->receipt->currencyAmt($input),
-            $msg
-        );
     }
 }

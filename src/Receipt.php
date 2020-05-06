@@ -10,9 +10,14 @@ class Receipt
      * @var float
      */
     public $tax;
+    /**
+     * @var Formatter
+     */
+    private $formatter;
 
-    public function __construct()
+    public function __construct(Formatter $formatter)
     {
+        $this->formatter = $formatter;
     }
 
     public function subTotal(array $items = [], float $coupon = null): float
@@ -31,17 +36,12 @@ class Receipt
 
     public function tax(float $amount): float
     {
-        return ($amount * $this->tax);
+        return $this->formatter->currencyAmt(($amount * $this->tax));
     }
 
     public function postTaxTotal(array $amount, float $coupon = null): float
     {
         $subtotal = $this->subTotal($amount, $coupon);
         return $subtotal + $this->tax($subtotal);
-    }
-
-    public function currencyAmt(float $input): float
-    {
-        return round($input, 2);
     }
 }
