@@ -8,4 +8,9 @@ class Receipt
     {
         return (float)array_sum($items);
     }
+
+    public function tax(float $amount, float $tax): float
+    {
+        return ($amount * $tax);
+    }
 }
