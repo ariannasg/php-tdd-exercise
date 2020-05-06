@@ -24,17 +24,18 @@ This course takes developers from writing their first unit test in PHPUnit to im
 ## Local setup
 Follow the instructions to get the project up and running for local development and testing purposes.
 - Install php 7.3 (7.1 EOL soon): https://php-osx.liip.ch/. 
-- Configure IDE CLI Interpreter to use php 7.3.
+- Configure the IDE CLI Interpreter to use php 7.3.
 - Install composer (https://getcomposer.org/) and confirm the installation was successful by running: 
     ```
     composer --version
     ```
-- Install phpunit by running the following (from the project root):
+- Install phpunit, phpstan and roave security packages by running the following (from the project root):
     ```
-    composer install
+    make install
     ```
-- Configure IDE Test Framework: https://www.jetbrains.com/help/phpstorm/using-phpunit-framework.html.
-- Add a run configuration for running tests using PHPUnit.
+- Configure the IDE Test Framework: https://www.jetbrains.com/help/phpstorm/using-phpunit-framework.html.
+- The project already provides a phpunit configuration template that will be used when running tests via the Makefile. 
+Add a replica of the tests run configuration in the IDE for easier development.
 
 ## Contributing
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](.github/CONTRIBUTING.md)
