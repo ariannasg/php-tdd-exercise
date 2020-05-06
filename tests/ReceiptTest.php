@@ -7,13 +7,29 @@ use TDD\Receipt;
 
 class ReceiptTest extends TestCase
 {
+    /**
+     * @var Receipt
+     */
+    private $receipt;
+
+    protected function setUp(): void
+    {
+        $this->receipt = new Receipt();
+    }
+
+    protected function tearDown(): void
+    {
+        unset($this->receipt);
+    }
+
     public function testTotal(): void
     {
-        $receipt = new Receipt();
+        $input = [0, 2, 5, 8];
+        $output = $this->receipt->total($input);
 
         self::assertEquals(
             15,
-            $receipt->total([0, 2, 5, 8]),
+            $output,
             'When summing the total should equal 15');
     }
 }
