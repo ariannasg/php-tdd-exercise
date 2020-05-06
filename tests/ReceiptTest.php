@@ -12,7 +12,7 @@ class ReceiptTest extends TestCase
      */
     private $receipt;
 
-    public function provideTotal(): array
+    public function provideSubTotal(): array
     {
         return [
             [
@@ -56,14 +56,14 @@ class ReceiptTest extends TestCase
     }
 
     /**
-     * @dataProvider provideTotal
+     * @dataProvider provideSubTotal
      * @param array $items
      * @param float $expected
      */
-    public function testTotal(array $items, float $expected): void
+    public function testSubTotal(array $items, float $expected): void
     {
         $coupon = null;
-        $output = $this->receipt->total($items, $coupon);
+        $output = $this->receipt->subTotal($items, $coupon);
 
         self::assertEquals(
             $expected,
@@ -71,11 +71,11 @@ class ReceiptTest extends TestCase
             "When summing the total should equal {$expected}");
     }
 
-    public function testTotalAndCoupon(): void
+    public function testSubTotalAndCoupon(): void
     {
         $input = [0, 2, 5, 8];
         $coupon = 0.20;
-        $output = $this->receipt->total($input, $coupon);
+        $output = $this->receipt->subTotal($input, $coupon);
 
         self::assertEquals(
             12,
@@ -83,21 +83,21 @@ class ReceiptTest extends TestCase
             'When summing the total should equal 12');
     }
 
-    public function testTotalException(): void
+    public function testSubTotalException(): void
     {
         $input = [0, 2, 5, 8];
         $coupon = 1.20;
 
         $this->expectException('BadMethodCallException');
 
-        $this->receipt->total($input, $coupon);
+        $this->receipt->subTotal($input, $coupon);
     }
 
     public function testTax(): void
     {
         $inputAmount = 10.00;
-        $taxInput = 0.10;
-        $output = $this->receipt->tax($inputAmount, $taxInput);
+        $this->receipt->tax = 0.10;
+        $output = $this->receipt->tax($inputAmount);
 
         self::assertEquals(1.00, $output, 'The tax calculation should equal 1.00');
     }
@@ -105,20 +105,19 @@ class ReceiptTest extends TestCase
     public function testPostTaxTotal(): void
     {
         $items = [1, 2, 5, 8];
-        $tax = 0.20;
         $coupon = null;
 
-        $receipt = $this->getMockBuilder(Receipt::class)->setMethods(['total', 'tax'])->getMock();
+        $receipt = $this->getMockBuilder(Receipt::class)->setMethods(['subTotal', 'tax'])->getMock();
         $receipt->expects(self::once())
-            ->method('total')
+            ->method('subTotal')
             ->with($items, $coupon)
             ->willReturn(10.00);
         $receipt->expects(self::once())
             ->method('tax')
-            ->with(10.00, $tax)
+            ->with(10.00)
             ->willReturn(1.00);
 
-        $result = $receipt->postTaxTotal($items, $tax, $coupon);
+        $result = $receipt->postTaxTotal($items, $coupon);
 
         self::assertEquals(11.00, $result);
     }

@@ -6,11 +6,16 @@ use BadMethodCallException;
 
 class Receipt
 {
+    /**
+     * @var float
+     */
+    public $tax;
+
     public function __construct()
     {
     }
 
-    public function total(array $items = [], float $coupon = null): float
+    public function subTotal(array $items = [], float $coupon = null): float
     {
         $sum = (float)array_sum($items);
 
@@ -24,15 +29,15 @@ class Receipt
         return $sum;
     }
 
-    public function tax(float $amount, float $tax): float
+    public function tax(float $amount): float
     {
-        return ($amount * $tax);
+        return ($amount * $this->tax);
     }
 
-    public function postTaxTotal(array $amount, float $tax, float $coupon = null): float
+    public function postTaxTotal(array $amount, float $coupon = null): float
     {
-        $subtotal = $this->total($amount, $coupon);
-        return $subtotal + $this->tax($subtotal, $tax);
+        $subtotal = $this->subTotal($amount, $coupon);
+        return $subtotal + $this->tax($subtotal);
     }
 
     public function currencyAmt(float $input): float
