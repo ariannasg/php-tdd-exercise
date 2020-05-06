@@ -2,6 +2,8 @@
 
 namespace TDD;
 
+use BadMethodCallException;
+
 class Receipt
 {
     public function __construct()
@@ -13,6 +15,9 @@ class Receipt
         $sum = (float)array_sum($items);
 
         if ($sum !== 0 && $coupon !== null) {
+            if ($coupon > 1.00) {
+                throw new BadMethodCallException('Coupon must be less than or equal to 1.00');
+            }
             $sum -= ($sum * $coupon);
         }
 

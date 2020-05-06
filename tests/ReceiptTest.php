@@ -65,6 +65,16 @@ class ReceiptTest extends TestCase
             'When summing the total should equal 12');
     }
 
+    public function testTotalException(): void
+    {
+        $input = [0, 2, 5, 8];
+        $coupon = 1.20;
+
+        $this->expectException('BadMethodCallException');
+
+        $this->receipt->total($input, $coupon);
+    }
+
     public function testTax(): void
     {
         $inputAmount = 10.00;
