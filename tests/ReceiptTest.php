@@ -27,6 +27,24 @@ class ReceiptTest extends TestCase
         ];
     }
 
+    public function provideCurrencyAmt(): array
+    {
+        return [
+            [
+                1, 1.00, '1 should be transformed into 1.00'
+            ],
+            [
+                1.1, 1.10, '1 should be transformed into 1.10'
+            ],
+            [
+                1.11, 1.11, '1 should be transformed into 1.11'
+            ],
+            [
+                1.111, 1.11, '1 should be transformed into 1.11'
+            ]
+        ];
+    }
+
     protected function setUp(): void
     {
         $this->receipt = new Receipt();
@@ -103,5 +121,20 @@ class ReceiptTest extends TestCase
         $result = $receipt->postTaxTotal($items, $tax, $coupon);
 
         self::assertEquals(11.00, $result);
+    }
+
+    /**
+     * @dataProvider provideCurrencyAmt
+     * @param float $input
+     * @param float $expected
+     * @param string $msg
+     */
+    public function testCurrencyAmt(float $input, float $expected, string $msg): void
+    {
+        self::assertSame(
+            $expected,
+            $this->receipt->currencyAmt($input),
+            $msg
+        );
     }
 }
