@@ -40,7 +40,7 @@ Add a replica of the tests run configuration in the IDE for easier development.
 ## Contributing
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](.github/CONTRIBUTING.md)
 
-### License
+## License
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](LICENSE.md)
 
 
